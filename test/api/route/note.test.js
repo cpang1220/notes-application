@@ -88,6 +88,24 @@ describe('Tests for api route note', () => {
         });
     });
 
+    // Edited by CPang (Unit Test: Test 1 note subject allow update fix)
+    describe('update with note subject', () => {
+        it('should update a note without update the note subject, then json the exposed note', async () => {
+            req.note = note;
+            
+            // Note Subject is included, but the Note Subject should remain not updated after api update
+            req.body = {
+                subject: 'some subject updated',
+                body: 'some body',
+            };
+
+            await route.note.update(req, res);
+
+            req.note.update.calledWithExactly(req.body).should.be.true();
+            res.json.calledWithExactly('exposedNote').should.be.true();
+        });
+    });
+
     describe('delete', () => {
         it('should delete a note then send 204 status', async () => {
             req.note = note;
