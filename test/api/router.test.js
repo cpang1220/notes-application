@@ -37,12 +37,12 @@ describe('Tests for api router', () => {
 
             setup(router);
         });
-
+        // Edited by CPang (Test 2 note version)
         it('should setup the router', () => {
-            router.get.callCount.should.equal(3);
-            router.post.callCount.should.equal(2);
-            router.put.callCount.should.equal(1);
-            router.delete.callCount.should.equal(2);
+            router.get.callCount.should.equal(4);
+            router.post.callCount.should.equal(3);
+            router.put.callCount.should.equal(2);
+            router.delete.callCount.should.equal(3);
             router.use.callCount.should.equal(2);
             router.param.callCount.should.equal(1);
         });

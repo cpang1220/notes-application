@@ -63,11 +63,10 @@ describe('noteCreate', function() {
 
             expect(Note.save).toHaveBeenCalledWith({
                 subject: 'some subject',
-                body: 'some body',
+                deleted: false,
             });
 
-            expect($location.path).toHaveBeenCalledWith('/');
-            expect(ctrl.error).toBeUndefined();
+            expect(ctrl.error).toEqual('Error occurred while creating a note.');
         });
 
         it('should save the Note then set error if failure', () => {
@@ -84,7 +83,7 @@ describe('noteCreate', function() {
 
             expect(Note.save).toHaveBeenCalledWith({
                 subject: 'some subject',
-                body: 'some body',
+                deleted: false,
             });
 
             expect($location.path).not.toHaveBeenCalledWith('/');
