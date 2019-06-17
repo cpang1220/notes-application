@@ -1,12 +1,14 @@
 'use strict';
 
+// Edited by CPang (Test 2 note version)
 angular.module('app').component('noteEdit', {
     templateUrl: '/src/note/edit.html',
     bindings: {
         session: '<',
         note: '<',
+        versions: '<',
     },
-    controller: function(Note, $location) {
+    controller: function(Note, Version, $location) {
         this.updateNote = function() {
             this.error = this._validate();
 
@@ -14,9 +16,17 @@ angular.module('app').component('noteEdit', {
                 Note.update({
                     id: this.note.id
                 }, {
-                    body: this.note.body
+                    deleted: false
                 }).$promise.then(() => {
-                    $location.path(`/notes/${ this.note.id }`);
+                    Version.save({
+                        body: this.versions[0].body,
+                        version: this.versions[0].version + 1,
+                        note_id: this.note.id  
+                    }).$promise.then(() => {
+                        $location.path(`/notes/${ this.note.id }`);
+                    }).catch(reason => {
+                        this.error = 'Error occurred while creating a version.';
+                    });
                 }).catch(reason => {
                     this.error = 'Error occurred while updating the note.';
                 });
@@ -24,7 +34,7 @@ angular.module('app').component('noteEdit', {
         };
 
         this._validate = function() {
-            if (!this.note.body) {
+            if (!this.versions[0].body) {
                 return 'The body is empty.';
             }
         };

@@ -1,5 +1,6 @@
 'use strict';
 
+// Edited by CPang (Test 2 note version)
 angular.module('app').component('noteList', {
     templateUrl: '/src/note/list.html',
     bindings: {
@@ -14,10 +15,12 @@ angular.module('app').component('noteList', {
         this.deleteNote = function(note) {
             this.error = null;
 
-            Note.delete({
+            Note.update({
                 id: note.id
+            }, {
+                deleted: true
             }).$promise.then(() => {
-                $route.reload();
+                $route.reload();              
             }).catch(reason => {
                 this.error = 'Error occurred while deleting the note.';
             });
