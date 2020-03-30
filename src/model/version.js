@@ -3,31 +3,27 @@
 const Sequelize = require('sequelize');
 // Edited by CPang (Test 2 note version)
 module.exports.define = sequelize => {
-    return sequelize.define('Note', {
+    return sequelize.define('Version', {
         id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        subject: {
-            type: Sequelize.STRING,
+        body: {
+            type: Sequelize.TEXT,
             allowNull: false,
             validate: {
                 notEmpty: true
             }
         },
-        deleted: {
-            type: Sequelize.BOOLEAN,
-            allowNull: false,
+        version: {
+            type: Sequelize.INTEGER,
+            allowNull: false
         },
-    }, {
-        indexes: [
-            {
-                name: 'Notes_user_id',
-                unique: true,
-                fields: ['userId', 'id']
-            },
-        ],
+        note_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+        },
     });
 };

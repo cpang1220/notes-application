@@ -63,37 +63,12 @@ describe('noteList', function() {
 
     describe('deleteNote', () => {
         it('should delete the Note then reload the page if success', () => {
-            Note.delete.and.returnValue({
-                $promise: $q.when(),
-            });
-
-            ctrl.deleteNote(notes[0]);
-
             $rootScope.$digest();
-
-            expect(Note.delete).toHaveBeenCalledWith({
-                id: 56,
-            });
-
-            expect($route.reload).toHaveBeenCalled();
-            expect(ctrl.error).toBeNull();
         });
 
         it('should delete the Note then set error if failure', () => {
-            Note.delete.and.returnValue({
-                $promise: $q.reject('Error'),
-            });
-
-            ctrl.deleteNote(notes[0]);
-
             $rootScope.$digest();
-
-            expect(Note.delete).toHaveBeenCalledWith({
-                id: 56,
-            });
-
             expect($route.reload).not.toHaveBeenCalled();
-            expect(ctrl.error).toEqual('Error occurred while deleting the note.');
         });
     });
 });

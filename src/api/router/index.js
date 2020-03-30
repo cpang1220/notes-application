@@ -15,7 +15,7 @@ function setupRoutesWithoutAuthentication(router) {
         route.session.create
     );
 }
-
+// Edited by CPang (Test 2 note version)
 function setupRoutesWithRequiredAuthentication(router) {
     // Session
     router.get(
@@ -48,6 +48,27 @@ function setupRoutesWithRequiredAuthentication(router) {
     );
     router.delete(
         '/notes/:noteId',
+        route.note.delete
+    );
+
+    // Version
+    router.post(
+        '/version',
+        apiMiddleware.jsonParser,
+        route.version.create
+    );
+    router.get(
+        '/version/:noteId',
+        route.version.get
+    );
+    router.put(
+        '/version/:noteId',
+        apiMiddleware.jsonParser,
+        route.note.update
+    );
+
+    router.delete(
+        '/version/:noteId',
         route.note.delete
     );
 }

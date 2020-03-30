@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const model = require('../model');
 const domain = require('../domain');
-
+// Edited by CPang (Note 2 note version)
 class User {
     constructor(user) {
         this._user = user;
@@ -31,6 +31,9 @@ class User {
             order: [
                 ['updatedAt', 'DESC']
             ],
+            where: {
+                deleted: false
+            },
         });
         return _.map(notes, note => new domain.Note(note));
     }

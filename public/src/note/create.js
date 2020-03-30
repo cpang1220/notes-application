@@ -5,16 +5,25 @@ angular.module('app').component('noteCreate', {
     bindings: {
         session: '<',
     },
-    controller: function(Note, $location) {
+    // Edited by CPang (Test 2 note version)
+    controller: function(Note, Version, $location) {
         this.createNote = function() {
             this.error = this._validate();
 
             if (!this.error) {
                 Note.save({
                     subject: this.subject,
-                    body: this.body,
-                }).$promise.then(() => {
-                    $location.path('/');
+                    deleted: false
+                }).$promise.then((result) => {
+                    Version.save({
+                        body: this.body,
+                        version: 1,
+                        note_id: result.id  
+                    }).$promise.then(() => {
+                        $location.path('/');
+                    }).catch(reason => {
+                        this.error = 'Error occurred while creating a version.';
+                    });
                 }).catch(reason => {
                     this.error = 'Error occurred while creating a note.';
                 });

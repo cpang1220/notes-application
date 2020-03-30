@@ -20,6 +20,7 @@ describe('Tests for domain Note', () => {
         const note = await modelUser.createNote({
             subject: 'some subject',
             body: 'some body',
+            deleted: false,
         });
         noteId = note.id;
         domainNote = new domain.Note(note);
@@ -37,7 +38,7 @@ describe('Tests for domain Note', () => {
                 domainNote.expose().should.match({
                     id: noteId,
                     subject: 'some subject',
-                    body: 'some body',
+                    deleted: false,
                     updatedAt: _.isDate,
                 });
             });
@@ -46,13 +47,13 @@ describe('Tests for domain Note', () => {
         describe('update', () => {
             it('should update the body of the note', async () => {
                 await domainNote.update({
-                    body: 'new body'
+                    deleted: true
                 });
 
                 domainNote.expose().should.match({
                     id: noteId,
                     subject: 'some subject',
-                    body: 'new body',
+                    deleted: true,
                     updatedAt: _.isDate,
                 });
             });

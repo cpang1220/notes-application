@@ -22,31 +22,37 @@ angular.module('app').config(function($routeProvider) {
             notes: Note => Note.query().$promise,
         }
     };
-
+    // Edited by CPang (Test 2 note version)
     const noteCreatePage = {
-        template: '<note-create session="$resolve.session" note="$resolve.note"></note-create>',
+        template: '<note-create session="$resolve.session" note="$resolve.note" version="$resolve.version"></note-create>',
         resolve: {
             session: Session => Session.current().$promise
         }
     };
 
     const noteDetailPage = {
-        template: '<note-detail session="$resolve.session" note="$resolve.note"></note-detail>',
+        template: '<note-detail session="$resolve.session" note="$resolve.note" versions="$resolve.versions"></note-detail>',
         resolve: {
             session: Session => Session.current().$promise,
             note: (Note, $route) => Note.get({
                 id: $route.current.params.noteId
-            }).$promise
+            }).$promise,
+            versions: (Version, $route) => Version.query({
+                id: $route.current.params.noteId
+            }).$promise,
         }
     };
 
     const noteEditPage = {
-        template: '<note-edit session="$resolve.session" note="$resolve.note"></note-edit>',
+        template: '<note-edit session="$resolve.session" note="$resolve.note" versions="$resolve.versions"></note-edit>',
         resolve: {
             session: Session => Session.current().$promise,
             note: (Note, $route) => Note.get({
                 id: $route.current.params.noteId
-            }).$promise
+            }).$promise,
+            versions: (Version, $route) => Version.query({
+                id: $route.current.params.noteId
+            }).$promise,
         }
     };
 
