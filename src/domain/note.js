@@ -21,7 +21,9 @@ class Note {
     }
 
     async update(note) {
-        await this._note.update(note);
+        // Edited by CPang (Test 1 note subject allow update fix)
+        await this._note.update(note,
+            {fields:['body','updatedAt']});
     }
 
     async delete() {

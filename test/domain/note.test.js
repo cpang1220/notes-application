@@ -58,6 +58,24 @@ describe('Tests for domain Note', () => {
             });
         });
 
+        // Edited by CPang (Unit Test: Test 1 note subject allow update fix)
+        describe('update with subject', () => {
+            it('should update the body of the note without update note subject', async () => {
+                await domainNote.update({
+                    subject: 'some subject updated',
+                    body: 'new body'
+                });
+
+                // The subject of the note should remain not updated
+                domainNote.expose().should.match({
+                    id: noteId,
+                    subject: 'some subject',
+                    body: 'new body',
+                    updatedAt: _.isDate,
+                });
+            });
+        });
+
         describe('delete', () => {
             it('should delete the note', async () => {
                 await domainNote.delete();
